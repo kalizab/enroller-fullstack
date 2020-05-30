@@ -8,7 +8,6 @@
     <h3 v-else>
       Zaplanowane zajęcia ({{ meetings.length }})
     </h3>
-
     <meetings-list :meetings="meetings"
                    :username="username"
                    @attend="addMeetingParticipant($event)"
@@ -29,7 +28,18 @@
                 meetings: []
             };
         },
+        created() {
+            this.getMeetings()
+        }, 
+
         methods: {
+            getMeetings() {
+                this.$http.get('meetings')
+                    .then(response => {
+                        this.meetings = response.data;
+                    })         
+            },
+
             addNewMeeting(meeting) {
                 this.meetings.push(meeting);
             },

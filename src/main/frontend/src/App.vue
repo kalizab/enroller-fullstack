@@ -53,6 +53,7 @@
                         this.storeAuth(user.login, token);
                     })
                     .catch(() => this.failure('Logowanie nieudane.'));
+                    axios.defaults.headers.common['Authorization'] = token
             },
             storeAuth(username, token) {
                 this.authenticatedUsername = username;
